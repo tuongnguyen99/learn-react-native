@@ -1,27 +1,41 @@
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Linking } from "react-native";
 
 import Card from "./Card";
 import CardSection from "./CardSection";
+import Button from "./Button";
 
 const AlbumDetail = ({ data }) => {
+  const {
+    thumbnailContainerStyle,
+    thumbnailStyle,
+    headerContentStyle,
+    headerTextStyle,
+    imageStyle
+  } = styles;
+  const { _id, title, artist, image, thumbnail_image, url } = data;
   return (
     <View>
       <Card>
         <CardSection>
-          <View style={styles.thumbnailContainerStyle}>
-            <Image
-              style={styles.thumbnailStyle}
-              source={{ uri: data.thumbnail_image }}
-            />
+          <View style={thumbnailContainerStyle}>
+            <Image style={thumbnailStyle} source={{ uri: thumbnail_image }} />
           </View>
-          <View style={styles.headerContentStyle}>
-            <Text style={styles.headerTextStyle}>{data.title}</Text>
-            <Text>{data.artist}</Text>
+          <View style={headerContentStyle}>
+            <Text style={headerTextStyle}>{title}</Text>
+            <Text>{artist}</Text>
           </View>
         </CardSection>
         <CardSection>
-          <Image style={styles.imageStyle} source={{ uri: data.image }} />
+          <Image style={imageStyle} source={{ uri: image }} />
+        </CardSection>
+        <CardSection>
+          <Button
+            title="By now"
+            onPress={() => {
+              Linking.openURL(url);
+            }}
+          />
         </CardSection>
       </Card>
     </View>
